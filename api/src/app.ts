@@ -2,10 +2,15 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
+import { useContainer } from "typeorm";
+import { Container } from "typeorm-typedi-extensions";
+import cookieParser from "cookie-parser";
 
 import createSchema from "./utils/createSchema";
 
 const PORT = 4000;
+
+useContainer(Container);
 
 const main = async () => {
   await createConnection();
@@ -18,6 +23,8 @@ const main = async () => {
   });
 
   const app = express();
+
+  app.use(cookieParser());
 
   apolloServer.applyMiddleware({ app });
 

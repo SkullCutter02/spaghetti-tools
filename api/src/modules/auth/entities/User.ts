@@ -7,14 +7,13 @@ import { Field, ObjectType } from "type-graphql";
 @Entity("users")
 export default class User extends ModelEntity {
   @Field()
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Field()
-  @Column()
+  @Column({ unique: true })
   email: string;
 
-  @Field()
   @Column()
   hash: string;
 }
