@@ -10,9 +10,9 @@ import createSchema from "./utils/createSchema";
 
 const PORT = 4000;
 
-useContainer(Container);
-
 const main = async () => {
+  useContainer(Container);
+
   await createConnection();
 
   const schema = await createSchema();
