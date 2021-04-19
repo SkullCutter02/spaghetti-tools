@@ -1,23 +1,22 @@
 import { MiddlewareInterface, NextFn, ResolverData } from "type-graphql";
-import * as jwt from "jsonwebtoken";
+import { Inject, Service } from "typedi";
 
 import Context from "../types/Context";
-import { Service } from "typedi";
+import JwtService from "../modules/auth/JwtService";
 
 @Service()
 export default class AuthMiddleware implements MiddlewareInterface<Context> {
+  @Inject(() => JwtService)
+  private readonly jwtService: JwtService;
+
   async use({ context: { req, res }, info }: ResolverData<Context>, next: NextFn) {
-    const token = req.cookies.token;
+    const userId = this.jwtService.verifyToken(req.cookies.token);
 
-    if (token) {
-      jwt.verify(token, "secretkey", (err, authData: string | any) => {
-        if (err) throw err;
-
-        res.locals.userId = authData;
-        return next();
-      });
+    if (userId) {
+      res.locals.userId = userId as string;
+      return next();
     } else {
-      throw new Error("Not authorized");
+      return null;
     }
   }
 }

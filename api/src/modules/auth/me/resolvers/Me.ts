@@ -14,9 +14,8 @@ export default class MeResolver {
   private readonly userRepository: Repository<User>;
 
   @UseMiddleware(AuthMiddleware)
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   async me(@Ctx() { res }: Context): Promise<User> {
-    const user = await this.userRepository.findOne({ id: res.locals.userId });
-    return user;
+    return this.userRepository.findOne({ id: res.locals.userId });
   }
 }
