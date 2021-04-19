@@ -16,7 +16,7 @@ export default class AuthMiddleware implements MiddlewareInterface<Context> {
       res.locals.userId = userId as string;
       return next();
     } else {
-      return null;
+      throw new Error("Not authorized");
     }
   }
 }

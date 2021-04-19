@@ -1,12 +1,12 @@
 import { Mutation, Resolver, Arg, Ctx } from "type-graphql";
 import { Inject, Service } from "typedi";
 
-import RegisterInput from "../RegisterInput";
-import User from "../../entities/User";
-import RegisterService from "../RegisterService";
-import Context from "../../../../types/Context";
-import JwtService from "../../JwtService";
-import cookieOptions from "../../cookieOptions";
+import RegisterInput from "../register/RegisterInput";
+import User from "../entities/User";
+import RegisterService from "../register/RegisterService";
+import Context from "../../../types/Context";
+import JwtService from "../JwtService";
+import cookieOptions from "../cookieOptions";
 
 @Service()
 @Resolver(User)

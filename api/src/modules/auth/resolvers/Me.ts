@@ -3,9 +3,9 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
 import { Service } from "typedi";
 
-import User from "../../entities/User";
-import Context from "../../../../types/Context";
-import AuthMiddleware from "../../../../middleware/AuthMiddleware";
+import User from "../entities/User";
+import Context from "../../../types/Context";
+import AuthMiddleware from "../../../middleware/AuthMiddleware";
 
 @Service()
 @Resolver(User)
