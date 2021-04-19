@@ -9,7 +9,7 @@ import RegisterInput from "./RegisterInput";
 @Service()
 export default class RegisterService {
   @InjectRepository(User)
-  userRepository: Repository<User>;
+  private readonly userRepository: Repository<User>;
 
   async register(input: RegisterInput) {
     if (await this.userRepository.findOne({ email: input.email }))

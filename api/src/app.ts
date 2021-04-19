@@ -1,8 +1,7 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, useContainer } from "typeorm";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import { useContainer } from "typeorm";
 import { Container } from "typeorm-typedi-extensions";
 import cookieParser from "cookie-parser";
 
