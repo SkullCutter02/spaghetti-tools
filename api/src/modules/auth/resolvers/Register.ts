@@ -2,7 +2,7 @@ import { Mutation, Resolver, Arg, Ctx } from "type-graphql";
 import { Inject, Service } from "typedi";
 
 import RegisterInput from "../register/RegisterInput";
-import User from "../entities/User";
+import User from "../../../entity/User";
 import RegisterService from "../register/RegisterService";
 import Context from "../../../types/Context";
 import JwtService from "../JwtService";

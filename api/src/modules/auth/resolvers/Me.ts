@@ -3,7 +3,7 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
 import { Service } from "typedi";
 
-import User from "../entities/User";
+import User from "../../../entity/User";
 import Context from "../../../types/Context";
 import AuthMiddleware from "../../../middleware/AuthMiddleware";
 

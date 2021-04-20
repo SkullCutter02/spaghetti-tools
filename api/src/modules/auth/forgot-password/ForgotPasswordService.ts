@@ -3,8 +3,8 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-import User from "../entities/User";
-import Email from "../entities/Email";
+import User from "../../../entity/User";
+import Email from "../../../entity/Email";
 import addMillisecondsToNow from "../../../utils/addMillisecondsToNow";
 
 @Service()

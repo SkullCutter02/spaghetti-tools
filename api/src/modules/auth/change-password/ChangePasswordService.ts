@@ -3,8 +3,8 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
 import * as bcrypt from "bcryptjs";
 
-import Email from "../entities/Email";
-import User from "../entities/User";
+import Email from "../../../entity/Email";
+import User from "../../../entity/User";
 
 @Service()
 export default class ChangePasswordService {

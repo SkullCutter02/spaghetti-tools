@@ -3,7 +3,7 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
 import * as bcrypt from "bcryptjs";
 
-import User from "../entities/User";
+import User from "../../../entity/User";
 import LoginInput from "./LoginInput";
 
 @Service()

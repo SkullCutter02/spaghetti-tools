@@ -1,7 +1,8 @@
-import { Column, DeleteDateColumn, Entity } from "typeorm";
+import { Column, DeleteDateColumn, Entity, OneToMany } from "typeorm";
 
-import ModelEntity from "../../../shared/ModelEntity";
+import ModelEntity from "../shared/ModelEntity";
 import { Field, ObjectType } from "type-graphql";
+import Project from "./Project";
 
 @ObjectType()
 @Entity("users")
@@ -19,4 +20,8 @@ export default class User extends ModelEntity {
 
   @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
+
+  @Field(() => [Project])
+  @OneToMany(() => Project, (project) => project.user)
+  projects: Project[];
 }

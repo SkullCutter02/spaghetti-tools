@@ -1,7 +1,7 @@
 import { Mutation, Resolver, Arg, Ctx } from "type-graphql";
 import { Inject, Service } from "typedi";
 
-import User from "../entities/User";
+import User from "../../../entity/User";
 import LoginInput from "../login/LoginInput";
 import Context from "../../../types/Context";
 import LoginService from "../login/LoginService";

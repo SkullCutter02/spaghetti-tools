@@ -2,7 +2,7 @@ import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
 
-import User from "../entities/User";
+import User from "../../../entity/User";
 
 @Service()
 export default class DeleteAccountService {
