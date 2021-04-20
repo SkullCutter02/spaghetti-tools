@@ -44,4 +44,10 @@ export default class ProjectService {
     await project.save();
     return project;
   }
+
+  async delete(projectId: string) {
+    const project = await this.projectRepository.findOneOrFail({ id: projectId });
+    await project.remove();
+    return true;
+  }
 }

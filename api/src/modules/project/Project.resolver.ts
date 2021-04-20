@@ -38,4 +38,10 @@ export default class ProjectResolver {
   async updateProject(@Arg("id") id: string, @Arg("name", { nullable: true }) name: string) {
     return this.projectService.update(id, name);
   }
+
+  @Mutation(() => Boolean)
+  @UseMiddleware(AuthMiddleware, HasProjectAccess)
+  async deleteProject(@Arg("id") id: string) {
+    return this.projectService.delete(id);
+  }
 }
