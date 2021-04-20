@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 import { Matches } from "class-validator";
 
-import passwordRegex from "../passwordRegex";
+import PASSWORD_REGEX from "../passwordRegex";
 
 @InputType()
 export default class ChangePasswordInput {
@@ -9,6 +9,6 @@ export default class ChangePasswordInput {
   token: string;
 
   @Field()
-  @Matches(passwordRegex)
+  @Matches(PASSWORD_REGEX)
   password: string;
 }

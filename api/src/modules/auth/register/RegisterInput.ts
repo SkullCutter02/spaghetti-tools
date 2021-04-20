@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 import { IsEmail, Length, Matches } from "class-validator";
 
-import passwordRegex from "../passwordRegex";
+import PASSWORD_REGEX from "../passwordRegex";
 
 @InputType()
 export default class RegisterInput {
@@ -14,7 +14,7 @@ export default class RegisterInput {
   @Field()
   email: string;
 
-  @Matches(passwordRegex, { message: "Password must contain at least one number and one letter" })
+  @Matches(PASSWORD_REGEX, { message: "Password must contain at least one number and one letter" })
   @Length(8, 255)
   @Field()
   password: string;

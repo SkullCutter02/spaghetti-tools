@@ -1,6 +1,6 @@
 import { Column, Entity } from "typeorm";
 
-import ModelEntity from "../../shared/ModelEntity";
+import ModelEntity from "../../../shared/ModelEntity";
 
 @Entity("emails")
 export default class Email extends ModelEntity {
