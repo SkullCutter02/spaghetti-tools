@@ -13,6 +13,11 @@ export default class ProjectService {
   @InjectRepository(User)
   private readonly userRepository: Repository<User>;
 
+  async findAll(userId: string) {
+    const user = await this.userRepository.findOneOrFail({ id: userId });
+    return await this.projectRepository.find({ user });
+  }
+
   async create(userId: string, name: string) {
     const user = await this.userRepository.findOneOrFail({ id: userId }, { relations: ["projects"] });
 
