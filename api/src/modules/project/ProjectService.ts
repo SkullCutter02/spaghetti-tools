@@ -1,9 +1,11 @@
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
+import { GraphQLResolveInfo } from "graphql";
 
 import Project from "../../entity/Project";
 import User from "../../entity/User";
+import relationMapper from "../../utils/relationMapper";
 
 @Service()
 export default class ProjectService {
@@ -13,9 +15,10 @@ export default class ProjectService {
   @InjectRepository(User)
   private readonly userRepository: Repository<User>;
 
-  async findAll(userId: string) {
+  async findAll(userId: string, info: GraphQLResolveInfo) {
     const user = await this.userRepository.findOneOrFail({ id: userId });
-    return await this.projectRepository.find({ user });
+    const projectRelations = relationMapper.buildRelationListForQuery(Project, info);
+    return await this.projectRepository.find({ where: { user }, relations: [...projectRelations] });
   }
 
   async create(userId: string, name: string) {

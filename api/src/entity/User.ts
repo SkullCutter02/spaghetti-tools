@@ -1,7 +1,7 @@
 import { Column, DeleteDateColumn, Entity, OneToMany } from "typeorm";
+import { Field, ObjectType } from "type-graphql";
 
 import ModelEntity from "../shared/ModelEntity";
-import { Field, ObjectType } from "type-graphql";
 import Project from "./Project";
 
 @ObjectType()

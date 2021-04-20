@@ -1,5 +1,6 @@
-import { Arg, Ctx, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Info, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 import { Inject, Service } from "typedi";
+import { GraphQLResolveInfo } from "graphql";
 
 import AuthMiddleware from "../../middleware/AuthMiddleware";
 import Context from "../../types/Context";
@@ -15,8 +16,8 @@ export default class ProjectResolver {
 
   @Query(() => [Project])
   @UseMiddleware(AuthMiddleware)
-  async getProjects(@Ctx() { res }: Context) {
-    return this.projectService.findAll(res.locals.userId);
+  async projects(@Ctx() { res, relationMapper }: Context, @Info() info: GraphQLResolveInfo) {
+    return this.projectService.findAll(res.locals.userId, info);
   }
 
   @Mutation(() => Project)
