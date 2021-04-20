@@ -12,9 +12,9 @@ export default class RegisterService {
   private readonly userRepository: Repository<User>;
 
   async register(input: RegisterInput) {
-    if (await this.userRepository.findOne({ email: input.email }))
+    if (await this.userRepository.findOne({ email: input.email }, { withDeleted: true }))
       throw new Error("User with such email already exists");
-    else if (await this.userRepository.findOne({ username: input.username }))
+    else if (await this.userRepository.findOne({ username: input.username }, { withDeleted: true }))
       throw new Error("User with such username already exists");
 
     const hash = await bcrypt.hash(input.password, 12);

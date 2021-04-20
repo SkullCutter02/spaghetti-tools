@@ -1,4 +1,4 @@
-import { Column, Entity } from "typeorm";
+import { Column, DeleteDateColumn, Entity } from "typeorm";
 
 import ModelEntity from "../../../shared/ModelEntity";
 import { Field, ObjectType } from "type-graphql";
@@ -16,4 +16,7 @@ export default class User extends ModelEntity {
 
   @Column()
   hash: string;
+
+  @DeleteDateColumn({ nullable: true })
+  deletedAt?: Date;
 }
