@@ -6,7 +6,7 @@ import LoginInput from "../login/LoginInput";
 import Context from "../../../types/Context";
 import LoginService from "../login/LoginService";
 import JwtService from "../JwtService";
-import cookieOptions from "../cookieOptions";
+import cookieOptions from "../../../utils/cookieOptions";
 
 @Service()
 @Resolver(User)

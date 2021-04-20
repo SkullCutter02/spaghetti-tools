@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 import { IsEmail, Length, Matches } from "class-validator";
 
-import PASSWORD_REGEX from "../passwordRegex";
+import PASSWORD_REGEX from "../../../constants/passwordRegex";
 
 @InputType()
 export default class RegisterInput {

@@ -6,7 +6,7 @@ import User from "../entities/User";
 import RegisterService from "../register/RegisterService";
 import Context from "../../../types/Context";
 import JwtService from "../JwtService";
-import cookieOptions from "../cookieOptions";
+import cookieOptions from "../../../utils/cookieOptions";
 
 @Service()
 @Resolver(User)
