@@ -37,4 +37,11 @@ export default class ProjectService {
 
     return await this.projectRepository.create({ name, user }).save();
   }
+
+  async update(projectId: string, name: string) {
+    const project = await this.projectRepository.findOneOrFail({ id: projectId });
+    project.name = name || project.name;
+    await project.save();
+    return project;
+  }
 }

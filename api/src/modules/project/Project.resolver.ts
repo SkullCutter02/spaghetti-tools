@@ -32,4 +32,10 @@ export default class ProjectResolver {
   async createProject(@Ctx() { res }: Context, @Arg("input") { name }: CreateProjectInput) {
     return this.projectService.create(res.locals.userId, name);
   }
+
+  @Mutation(() => Project)
+  @UseMiddleware(AuthMiddleware, HasProjectAccess)
+  async updateProject(@Arg("id") id: string, @Arg("name", { nullable: true }) name: string) {
+    return this.projectService.update(id, name);
+  }
 }
