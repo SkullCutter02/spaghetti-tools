@@ -15,6 +15,14 @@ export default class ProjectService {
   @InjectRepository(User)
   private readonly userRepository: Repository<User>;
 
+  async find(projectId: string, info: GraphQLResolveInfo) {
+    const projectRelations = relationMapper.buildRelationListForQuery(Project, info);
+    return await this.projectRepository.findOneOrFail(
+      { id: projectId },
+      { relations: [...projectRelations] }
+    );
+  }
+
   async findAll(userId: string, info: GraphQLResolveInfo) {
     const user = await this.userRepository.findOneOrFail({ id: userId });
     const projectRelations = relationMapper.buildRelationListForQuery(Project, info);

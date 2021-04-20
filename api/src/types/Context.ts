@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { RelationMapper } from "typeorm-graphql-joiner";
 
 export default interface Context {
   req: Request;
@@ -8,5 +7,4 @@ export default interface Context {
       userId: string;
     };
   };
-  relationMapper: RelationMapper;
 }

@@ -7,6 +7,7 @@ import Context from "../../types/Context";
 import ProjectService from "./ProjectService";
 import CreateProjectInput from "./CreateProjectInput";
 import Project from "../../entity/Project";
+import HasProjectAccess from "../../middleware/HasProjectAccess";
 
 @Service()
 @Resolver(Project)
@@ -14,9 +15,15 @@ export default class ProjectResolver {
   @Inject(() => ProjectService)
   private readonly projectService: ProjectService;
 
+  @Query(() => Project)
+  @UseMiddleware(AuthMiddleware, HasProjectAccess)
+  async project(@Arg("id") id: string, @Info() info: GraphQLResolveInfo) {
+    return this.projectService.find(id, info);
+  }
+
   @Query(() => [Project])
   @UseMiddleware(AuthMiddleware)
-  async projects(@Ctx() { res, relationMapper }: Context, @Info() info: GraphQLResolveInfo) {
+  async projects(@Ctx() { res }: Context, @Info() info: GraphQLResolveInfo) {
     return this.projectService.findAll(res.locals.userId, info);
   }
 
