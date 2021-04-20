@@ -1,7 +1,7 @@
 import { Arg, Mutation, Resolver } from "type-graphql";
 import { Inject, Service } from "typedi";
 
-import ForgotPasswordService from "../forgot-password/ForgotPasswordService";
+import ForgotPasswordService from "./ForgotPasswordService";
 import MailService from "../MailService";
 
 @Service()

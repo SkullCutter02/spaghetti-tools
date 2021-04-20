@@ -1,8 +1,8 @@
 import { Arg, Mutation, Resolver } from "type-graphql";
 import { Inject, Service } from "typedi";
 
-import ChangePasswordService from "../change-password/ChangePasswordService";
-import ChangePasswordInput from "../change-password/ChangePasswordInput";
+import ChangePasswordService from "./ChangePasswordService";
+import ChangePasswordInput from "./ChangePasswordInput";
 
 @Service()
 @Resolver()

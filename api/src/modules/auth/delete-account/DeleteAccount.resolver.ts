@@ -1,7 +1,7 @@
 import { Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import { Inject, Service } from "typedi";
 
-import DeleteAccountService from "../delete-account/DeleteAccountService";
+import DeleteAccountService from "./DeleteAccountService";
 import Context from "../../../types/Context";
 import AuthMiddleware from "../../../middleware/AuthMiddleware";
 

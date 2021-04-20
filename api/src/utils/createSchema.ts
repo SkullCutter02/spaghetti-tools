@@ -3,7 +3,7 @@ import { Container } from "typedi";
 
 const createSchema = () => {
   return buildSchema({
-    resolvers: [__dirname + "/../modules/**/resolvers/*.ts"],
+    resolvers: [__dirname + "/../modules/**/*.resolver.ts"],
     container: Container,
   });
 };
