@@ -32,4 +32,10 @@ export default class SourceResolver {
   async createSource(@Arg("projectId") projectId: string, @Arg("input") input: CreateSourceInput) {
     return this.sourceService.create(projectId, input);
   }
+
+  @Mutation(() => Source)
+  @UseMiddleware(AuthMiddleware, HasSourceAccess)
+  async addComment(@Arg("sourceId") sourceId: string, @Arg("comment") comment: string) {
+    return this.sourceService.addComment(sourceId, comment);
+  }
 }

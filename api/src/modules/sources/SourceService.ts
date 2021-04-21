@@ -31,4 +31,11 @@ export default class SourceService {
     const project = await this.projectRepistory.findOneOrFail({ id: projectId });
     return await this.sourceRepository.create({ ...input, project }).save();
   }
+
+  async addComment(sourceId: string, comment: string) {
+    const source = await this.sourceRepository.findOneOrFail({ id: sourceId });
+    source.comments = source.comments ? [...source.comments, comment] : [comment];
+    await source.save();
+    return source;
+  }
 }
