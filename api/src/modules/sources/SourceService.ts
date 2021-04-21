@@ -8,6 +8,7 @@ import Source from "../../entity/Source";
 import CreateSourceInput from "./CreateSourceInput";
 import Project from "../../entity/Project";
 import relationMapper from "../../utils/relationMapper";
+import UpdateSourceInput from "./UpdateSourceInput";
 
 @Service()
 export default class SourceService {
@@ -31,6 +32,17 @@ export default class SourceService {
   async create(projectId: string, input: CreateSourceInput) {
     const project = await this.projectRepistory.findOneOrFail({ id: projectId });
     return await this.sourceRepository.create({ ...input, project }).save();
+  }
+
+  async update(sourceId: string, { url, citation, mediaType }: UpdateSourceInput) {
+    const source = await this.sourceRepository.findOneOrFail({ id: sourceId });
+
+    source.url = url || source.url;
+    source.citation = citation || source.citation;
+    source.mediaType = mediaType || source.mediaType;
+
+    await source.save();
+    return source;
   }
 
   async addComment(sourceId: string, comment: string) {

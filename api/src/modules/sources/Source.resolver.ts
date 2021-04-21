@@ -8,6 +8,7 @@ import Source from "../../entity/Source";
 import CreateSourceInput from "./CreateSourceInput";
 import SourceService from "./SourceService";
 import HasSourceAccess from "../../middleware/HasSourceAccess";
+import UpdateSourceInput from "./UpdateSourceInput";
 
 @Service()
 @Resolver()
@@ -31,6 +32,12 @@ export default class SourceResolver {
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
   async createSource(@Arg("projectId") projectId: string, @Arg("input") input: CreateSourceInput) {
     return this.sourceService.create(projectId, input);
+  }
+
+  @Mutation(() => Source)
+  @UseMiddleware(AuthMiddleware, HasSourceAccess)
+  async updateSource(@Arg("sourceId") sourceId: string, @Arg("input") input: UpdateSourceInput) {
+    return this.sourceService.update(sourceId, input);
   }
 
   @Mutation(() => Source)
