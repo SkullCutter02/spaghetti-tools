@@ -1,8 +1,9 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 
 import ModelEntity from "../shared/ModelEntity";
 import User from "./User";
+import Source from "./Source";
 
 @ObjectType()
 @Entity("projects")
@@ -14,4 +15,8 @@ export default class Project extends ModelEntity {
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.projects)
   user: User;
+
+  @Field(() => [Source])
+  @OneToMany(() => Source, (source) => source.project)
+  sources: Source[];
 }
