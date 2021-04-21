@@ -14,6 +14,16 @@ export default class SourceResolver {
   @Inject(() => SourceService)
   private readonly sourceService: SourceService;
 
+  @Query(() => Source)
+  @UseMiddleware(AuthMiddleware, HasProjectAccess)
+  async source(
+    @Arg("projectId") projectId: string,
+    @Arg("sourceId") sourceId: string,
+    @Info() info: GraphQLResolveInfo
+  ) {
+    return this.sourceService.find(sourceId, info);
+  }
+
   @Query(() => [Source])
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
   async sources(@Arg("projectId") projectId: string, @Info() info: GraphQLResolveInfo) {

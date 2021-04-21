@@ -16,6 +16,11 @@ export default class SourceService {
   @InjectRepository(Project)
   private readonly projectRepistory: Repository<Project>;
 
+  async find(sourceId: string, info: GraphQLResolveInfo) {
+    const sourceRelations = relationMapper.buildRelationListForQuery(Source, info);
+    return await this.sourceRepository.findOneOrFail({ id: sourceId }, { relations: [...sourceRelations] });
+  }
+
   async findAll(projectId: string, info: GraphQLResolveInfo) {
     const project = await this.projectRepistory.findOneOrFail({ id: projectId });
     const sourceRelations = relationMapper.buildRelationListForQuery(Source, info);
