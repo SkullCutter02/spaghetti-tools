@@ -17,8 +17,8 @@ export default class ProjectResolver {
 
   @Query(() => Project)
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
-  async project(@Arg("id") id: string, @Info() info: GraphQLResolveInfo) {
-    return this.projectService.find(id, info);
+  async project(@Arg("projectId") projectId: string, @Info() info: GraphQLResolveInfo) {
+    return this.projectService.find(projectId, info);
   }
 
   @Query(() => [Project])
@@ -35,13 +35,13 @@ export default class ProjectResolver {
 
   @Mutation(() => Project)
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
-  async updateProject(@Arg("id") id: string, @Arg("name", { nullable: true }) name: string) {
-    return this.projectService.update(id, name);
+  async updateProject(@Arg("projectId") projectId: string, @Arg("name", { nullable: true }) name: string) {
+    return this.projectService.update(projectId, name);
   }
 
   @Mutation(() => Boolean)
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
-  async deleteProject(@Arg("id") id: string) {
-    return this.projectService.delete(id);
+  async deleteProject(@Arg("projectId") projectId: string) {
+    return this.projectService.delete(projectId);
   }
 }

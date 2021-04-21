@@ -16,13 +16,13 @@ export default class SourceResolver {
 
   @Query(() => [Source])
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
-  async sources(@Arg("id") projectId: string, @Info() info: GraphQLResolveInfo) {
+  async sources(@Arg("projectId") projectId: string, @Info() info: GraphQLResolveInfo) {
     return this.sourceService.findAll(projectId, info);
   }
 
   @Mutation(() => Source)
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
-  async createSource(@Arg("id") projectId: string, @Arg("input") input: CreateSourceInput) {
+  async createSource(@Arg("projectId") projectId: string, @Arg("input") input: CreateSourceInput) {
     return this.sourceService.create(projectId, input);
   }
 }

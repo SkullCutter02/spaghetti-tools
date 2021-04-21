@@ -11,7 +11,7 @@ export default class HasProjectAccess implements MiddlewareInterface<Context> {
   @InjectRepository(Project)
   private readonly projectRepository: Repository<Project>;
 
-  async use({ context: { res }, args: { id: projectId } }: ResolverData<Context>, next: NextFn) {
+  async use({ context: { res }, args: { projectId } }: ResolverData<Context>, next: NextFn) {
     const userId = res.locals.userId;
 
     const project = await this.projectRepository.findOneOrFail({ id: projectId }, { relations: ["user"] });
