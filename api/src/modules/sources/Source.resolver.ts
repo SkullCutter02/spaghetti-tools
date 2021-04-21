@@ -42,9 +42,9 @@ export default class SourceResolver {
   @Mutation(() => Source)
   async editComment(
     @Arg("sourceId") sourceId: string,
-    @Arg("originalComment") originalComment: string,
+    @Arg("commentId") commentId: string,
     @Arg("updatedComment") updatedComment: string
   ) {
-    return this.sourceService.editComment(sourceId, originalComment, updatedComment);
+    return this.sourceService.editComment(sourceId, commentId, updatedComment);
   }
 }

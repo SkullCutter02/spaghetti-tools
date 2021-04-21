@@ -11,6 +11,15 @@ registerEnumType(Media, {
 });
 
 @ObjectType()
+class Comment {
+  @Field()
+  id: string;
+
+  @Field()
+  body: string;
+}
+
+@ObjectType()
 @Entity("sources")
 export default class Source extends ModelEntity {
   @Field({ nullable: true })
@@ -23,9 +32,9 @@ export default class Source extends ModelEntity {
   @Length(1, 765)
   citation: string;
 
-  @Field(() => [String], { nullable: true })
-  @Column("simple-array", { nullable: true })
-  comments: string[];
+  @Field(() => [Comment])
+  @Column({ type: "jsonb", array: false, default: () => "'[]'" })
+  comments: Array<{ id: string; body: string }>;
 
   @Field(() => Media)
   @Column({ type: "enum", enum: Media })

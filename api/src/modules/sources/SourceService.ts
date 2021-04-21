@@ -2,6 +2,7 @@ import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
 import { GraphQLResolveInfo } from "graphql";
+import { v4 as uuid } from "uuid";
 
 import Source from "../../entity/Source";
 import CreateSourceInput from "./CreateSourceInput";
@@ -34,16 +35,16 @@ export default class SourceService {
 
   async addComment(sourceId: string, comment: string) {
     const source = await this.sourceRepository.findOneOrFail({ id: sourceId });
-    source.comments = source.comments ? [...source.comments, comment] : [comment];
+    source.comments = [...source.comments, { id: uuid(), body: comment }];
     await source.save();
     return source;
   }
 
-  async editComment(sourceId: string, originalComment: string, updatedComment: string) {
+  async editComment(sourceId: string, commentId: string, updatedComment: string) {
     const source = await this.sourceRepository.findOneOrFail({ id: sourceId });
-    source.comments = source.comments.map((comment) => {
-      if (comment === originalComment) return updatedComment;
-      else return comment;
+    source.comments = source.comments.map((source) => {
+      if (source.id === commentId) return { id: source.id, body: updatedComment };
+      else return source;
     });
     await source.save();
     return source;
