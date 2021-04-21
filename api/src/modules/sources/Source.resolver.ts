@@ -7,6 +7,7 @@ import HasProjectAccess from "../../middleware/HasProjectAccess";
 import Source from "../../entity/Source";
 import CreateSourceInput from "./CreateSourceInput";
 import SourceService from "./SourceService";
+import HasSourceAccess from "../../middleware/HasSourceAccess";
 
 @Service()
 @Resolver()
@@ -15,12 +16,8 @@ export default class SourceResolver {
   private readonly sourceService: SourceService;
 
   @Query(() => Source)
-  @UseMiddleware(AuthMiddleware, HasProjectAccess)
-  async source(
-    @Arg("projectId") projectId: string,
-    @Arg("sourceId") sourceId: string,
-    @Info() info: GraphQLResolveInfo
-  ) {
+  @UseMiddleware(AuthMiddleware, HasSourceAccess)
+  async source(@Arg("sourceId") sourceId: string, @Info() info: GraphQLResolveInfo) {
     return this.sourceService.find(sourceId, info);
   }
 
