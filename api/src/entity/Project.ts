@@ -12,6 +12,10 @@ export default class Project extends ModelEntity {
   @Column()
   name: string;
 
+  @Field()
+  @Column()
+  description: string;
+
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.projects)
   user: User;

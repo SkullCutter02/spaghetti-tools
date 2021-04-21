@@ -29,14 +29,18 @@ export default class ProjectResolver {
 
   @Mutation(() => Project)
   @UseMiddleware(AuthMiddleware)
-  async createProject(@Ctx() { res }: Context, @Arg("input") { name }: CreateProjectInput) {
-    return this.projectService.create(res.locals.userId, name);
+  async createProject(@Ctx() { res }: Context, @Arg("input") { name, description }: CreateProjectInput) {
+    return this.projectService.create(res.locals.userId, name, description);
   }
 
   @Mutation(() => Project)
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
-  async updateProject(@Arg("projectId") projectId: string, @Arg("name", { nullable: true }) name: string) {
-    return this.projectService.update(projectId, name);
+  async updateProject(
+    @Arg("projectId") projectId: string,
+    @Arg("name", { nullable: true }) name: string,
+    @Arg("description", { nullable: true }) description: string
+  ) {
+    return this.projectService.update(projectId, name, description);
   }
 
   @Mutation(() => Boolean)

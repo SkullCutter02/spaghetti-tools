@@ -29,18 +29,19 @@ export default class ProjectService {
     return await this.projectRepository.find({ where: { user }, relations: [...projectRelations] });
   }
 
-  async create(userId: string, name: string) {
+  async create(userId: string, name: string, description: string) {
     const user = await this.userRepository.findOneOrFail({ id: userId }, { relations: ["projects"] });
 
     if (user.projects.some((project) => project.name === name))
       throw new Error("User already has a project with the same name");
 
-    return await this.projectRepository.create({ name, user }).save();
+    return await this.projectRepository.create({ name, description, user }).save();
   }
 
-  async update(projectId: string, name: string) {
+  async update(projectId: string, name: string, description: string) {
     const project = await this.projectRepository.findOneOrFail({ id: projectId });
     project.name = name || project.name;
+    project.description = description || project.description;
     await project.save();
     return project;
   }
