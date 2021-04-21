@@ -38,4 +38,13 @@ export default class SourceResolver {
   async addComment(@Arg("sourceId") sourceId: string, @Arg("comment") comment: string) {
     return this.sourceService.addComment(sourceId, comment);
   }
+
+  @Mutation(() => Source)
+  async editComment(
+    @Arg("sourceId") sourceId: string,
+    @Arg("originalComment") originalComment: string,
+    @Arg("updatedComment") updatedComment: string
+  ) {
+    return this.sourceService.editComment(sourceId, originalComment, updatedComment);
+  }
 }

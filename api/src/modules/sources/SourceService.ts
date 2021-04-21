@@ -38,4 +38,14 @@ export default class SourceService {
     await source.save();
     return source;
   }
+
+  async editComment(sourceId: string, originalComment: string, updatedComment: string) {
+    const source = await this.sourceRepository.findOneOrFail({ id: sourceId });
+    source.comments = source.comments.map((comment) => {
+      if (comment === originalComment) return updatedComment;
+      else return comment;
+    });
+    await source.save();
+    return source;
+  }
 }
