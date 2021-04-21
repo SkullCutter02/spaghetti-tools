@@ -41,6 +41,6 @@ export default class Source extends ModelEntity {
   mediaType: Media;
 
   @Field(() => Project)
-  @ManyToOne(() => Project, (project) => project.sources)
+  @ManyToOne(() => Project, (project) => project.sources, { onDelete: "CASCADE" })
   project: Project;
 }

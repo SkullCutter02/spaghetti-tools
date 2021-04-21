@@ -17,6 +17,6 @@ export default class Project extends ModelEntity {
   user: User;
 
   @Field(() => [Source])
-  @OneToMany(() => Source, (source) => source.project)
+  @OneToMany(() => Source, (source) => source.project, { onDelete: "CASCADE" })
   sources: Source[];
 }
