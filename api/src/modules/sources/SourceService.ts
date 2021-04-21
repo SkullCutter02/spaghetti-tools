@@ -45,6 +45,12 @@ export default class SourceService {
     return source;
   }
 
+  async delete(sourceId: string) {
+    const source = await this.sourceRepository.findOneOrFail({ id: sourceId });
+    await source.remove();
+    return true;
+  }
+
   async addComment(sourceId: string, comment: string) {
     const source = await this.sourceRepository.findOneOrFail({ id: sourceId });
     source.comments = [...source.comments, { id: uuid(), body: comment }];

@@ -40,6 +40,12 @@ export default class SourceResolver {
     return this.sourceService.update(sourceId, input);
   }
 
+  @Mutation(() => Boolean)
+  @UseMiddleware(AuthMiddleware, HasSourceAccess)
+  async deleteSource(@Arg("sourceId") sourceId: string) {
+    return this.sourceService.delete(sourceId);
+  }
+
   @Mutation(() => Source)
   @UseMiddleware(AuthMiddleware, HasSourceAccess)
   async addComment(@Arg("sourceId") sourceId: string, @Arg("comment") comment: string) {
