@@ -1,10 +1,11 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { Field, ObjectType, registerEnumType } from "type-graphql";
 import { IsUrl, Length } from "class-validator";
 
 import ModelEntity from "../shared/ModelEntity";
 import Project from "./Project";
 import Media from "../types/Media";
+import Notecard from "./Notecard";
 
 registerEnumType(Media, {
   name: "Media",
@@ -43,4 +44,8 @@ export default class Source extends ModelEntity {
   @Field(() => Project)
   @ManyToOne(() => Project, (project) => project.sources, { onDelete: "CASCADE" })
   project: Project;
+
+  @Field(() => [Notecard], { nullable: true })
+  @OneToMany(() => Notecard, (notecard) => notecard.source, { onDelete: "SET NULL", nullable: true })
+  notecards: Notecard[];
 }
