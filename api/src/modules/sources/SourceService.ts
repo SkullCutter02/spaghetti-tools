@@ -49,4 +49,11 @@ export default class SourceService {
     await source.save();
     return source;
   }
+
+  async deleteComment(sourceId: string, commentId: string) {
+    const source = await this.sourceRepository.findOneOrFail({ id: sourceId });
+    source.comments = source.comments.filter((source) => source.id !== commentId);
+    await source.save();
+    return true;
+  }
 }
