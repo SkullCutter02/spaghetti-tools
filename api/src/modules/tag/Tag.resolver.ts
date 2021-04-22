@@ -37,4 +37,10 @@ export default class TagResolver {
   async updateTag(@Arg("tagId") tagId: string, @Arg("name", { nullable: true }) name: string) {
     return this.tagService.update(tagId, name);
   }
+
+  @Mutation(() => Boolean)
+  @UseMiddleware(AuthMiddleware, HasTagAccess)
+  async deleteTag(@Arg("tagId") tagId: string) {
+    return this.tagService.delete(tagId);
+  }
 }

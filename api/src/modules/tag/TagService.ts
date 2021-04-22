@@ -37,4 +37,10 @@ export default class TagService {
     await tag.save();
     return tag;
   }
+
+  async delete(tagId: string) {
+    const tag = await this.tagRepository.findOneOrFail({ id: tagId });
+    await tag.remove();
+    return true;
+  }
 }
