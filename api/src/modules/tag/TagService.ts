@@ -30,4 +30,11 @@ export default class TagService {
     const project = await this.projectRepository.findOneOrFail({ id: projectId });
     return await this.tagRepository.create({ name, project }).save();
   }
+
+  async update(tagId: string, name: string) {
+    const tag = await this.tagRepository.findOneOrFail({ id: tagId });
+    tag.name = name || tag.name;
+    await tag.save();
+    return tag;
+  }
 }

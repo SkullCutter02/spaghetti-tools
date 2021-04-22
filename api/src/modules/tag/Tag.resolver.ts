@@ -31,4 +31,10 @@ export default class TagResolver {
   async createTag(@Arg("projectId") projectId: string, @Arg("name") name: string) {
     return this.tagService.create(projectId, name);
   }
+
+  @Mutation(() => Tag)
+  @UseMiddleware(AuthMiddleware, HasTagAccess)
+  async updateTag(@Arg("tagId") tagId: string, @Arg("name", { nullable: true }) name: string) {
+    return this.tagService.update(tagId, name);
+  }
 }
