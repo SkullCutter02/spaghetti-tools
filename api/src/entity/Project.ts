@@ -5,6 +5,7 @@ import ModelEntity from "../shared/ModelEntity";
 import User from "./User";
 import Source from "./Source";
 import Notecard from "./Notecard";
+import Tag from "./Tag";
 
 @ObjectType()
 @Entity("projects")
@@ -28,4 +29,8 @@ export default class Project extends ModelEntity {
   @Field(() => [Notecard])
   @OneToMany(() => Notecard, (notecard) => notecard.project, { onDelete: "CASCADE" })
   notecards: Notecard[];
+
+  @Field(() => [Tag])
+  @OneToMany(() => Tag, (tag) => tag.project, { onDelete: "CASCADE" })
+  tags: Tag[];
 }
