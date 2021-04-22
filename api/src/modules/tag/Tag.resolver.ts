@@ -1,5 +1,6 @@
-import { Arg, Mutation, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Info, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 import { Inject, Service } from "typedi";
+import { GraphQLResolveInfo } from "graphql";
 
 import AuthMiddleware from "../../middleware/AuthMiddleware";
 import HasProjectAccess from "../../middleware/HasProjectAccess";
@@ -11,6 +12,12 @@ import Tag from "../../entity/Tag";
 export default class TagResolver {
   @Inject(() => TagService)
   private readonly tagService: TagService;
+
+  @Query(() => [Tag])
+  @UseMiddleware(AuthMiddleware, HasProjectAccess)
+  async tags(@Arg("projectId") projectId: string, @Info() info: GraphQLResolveInfo) {
+    return this.tagService.findAll(projectId, info);
+  }
 
   @Mutation(() => Tag)
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
