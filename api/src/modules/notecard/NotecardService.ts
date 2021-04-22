@@ -1,12 +1,14 @@
 import { Service } from "typedi";
 import { Repository } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
+import { GraphQLResolveInfo } from "graphql";
 
 import CreateNotecardInput from "./CreateNotecardInput";
 import Project from "../../entity/Project";
 import Notecard from "../../entity/Notecard";
 import Tag from "../../entity/Tag";
 import Source from "../../entity/Source";
+import relationMapper from "../../utils/relationMapper";
 
 @Service()
 export default class NotecardService {
@@ -21,6 +23,12 @@ export default class NotecardService {
 
   @InjectRepository(Source)
   private readonly sourceRepository: Repository<Source>;
+
+  async findAll(projectId: string, info: GraphQLResolveInfo) {
+    const project = await this.projectRepository.findOneOrFail({ id: projectId });
+    const notecardRelations = relationMapper.buildRelationListForQuery(Notecard, info);
+    return await this.notecardRepository.find({ where: { project }, relations: [...notecardRelations] });
+  }
 
   async create(
     projectId: string,
