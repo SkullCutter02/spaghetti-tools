@@ -15,6 +15,11 @@ export default class TagService {
   @InjectRepository(Project)
   private readonly projectRepository: Repository<Project>;
 
+  async find(tagId: string, info: GraphQLResolveInfo) {
+    const tagRelations = relationMapper.buildRelationListForQuery(Tag, info);
+    return await this.tagRepository.findOneOrFail({ id: tagId }, { relations: [...tagRelations] });
+  }
+
   async findAll(projectId: string, info: GraphQLResolveInfo) {
     const project = await this.projectRepository.findOneOrFail({ id: projectId });
     const tagRelations = relationMapper.buildRelationListForQuery(Tag, info);

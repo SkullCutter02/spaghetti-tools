@@ -6,12 +6,19 @@ import AuthMiddleware from "../../middleware/AuthMiddleware";
 import HasProjectAccess from "../../middleware/HasProjectAccess";
 import TagService from "./TagService";
 import Tag from "../../entity/Tag";
+import HasTagAccess from "../../middleware/HasTagAccess";
 
 @Service()
 @Resolver()
 export default class TagResolver {
   @Inject(() => TagService)
   private readonly tagService: TagService;
+
+  @Query(() => Tag)
+  @UseMiddleware(AuthMiddleware, HasTagAccess)
+  async tag(@Arg("tagId") tagId: string, @Info() info: GraphQLResolveInfo) {
+    return this.tagService.find(tagId, info);
+  }
 
   @Query(() => [Tag])
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
