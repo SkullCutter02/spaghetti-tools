@@ -47,5 +47,5 @@ export default class Source extends ModelEntity {
 
   @Field(() => [Notecard], { nullable: true })
   @OneToMany(() => Notecard, (notecard) => notecard.source, { onDelete: "SET NULL", nullable: true })
-  notecards: Notecard[];
+  notecards?: Notecard[];
 }

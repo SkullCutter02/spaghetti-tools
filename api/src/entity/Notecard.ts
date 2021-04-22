@@ -4,6 +4,7 @@ import { Field, ObjectType } from "type-graphql";
 import ModelEntity from "../shared/ModelEntity";
 import Source from "./Source";
 import Project from "./Project";
+import Tag from "./Tag";
 
 @ObjectType()
 @Entity("notecards")
@@ -31,4 +32,8 @@ export default class Notecard extends ModelEntity {
   @Field(() => Project)
   @ManyToOne(() => Project, (project) => project.notecards, { onDelete: "CASCADE" })
   project: Project;
+
+  @Field(() => Tag, { nullable: true })
+  @ManyToOne(() => Tag, (tag) => tag.notecards, { nullable: true, onDelete: "SET NULL" })
+  tag?: Tag;
 }
