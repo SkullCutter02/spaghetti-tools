@@ -24,6 +24,14 @@ export default class NotecardService {
   @InjectRepository(Source)
   private readonly sourceRepository: Repository<Source>;
 
+  async find(notecardId: string, info: GraphQLResolveInfo) {
+    const notecardRelations = relationMapper.buildRelationListForQuery(Notecard, info);
+    return await this.notecardRepository.findOneOrFail(
+      { id: notecardId },
+      { relations: [...notecardRelations] }
+    );
+  }
+
   async findAll(projectId: string, info: GraphQLResolveInfo) {
     const project = await this.projectRepository.findOneOrFail({ id: projectId });
     const notecardRelations = relationMapper.buildRelationListForQuery(Notecard, info);

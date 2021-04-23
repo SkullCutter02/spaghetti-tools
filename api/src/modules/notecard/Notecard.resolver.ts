@@ -7,12 +7,19 @@ import HasProjectAccess from "../../middleware/HasProjectAccess";
 import CreateNotecardInput from "./CreateNotecardInput";
 import NotecardService from "./NotecardService";
 import Notecard from "../../entity/Notecard";
+import HasNotecardAccess from "../../middleware/HasNotecardAccess";
 
 @Service()
 @Resolver()
 export default class NotecardResolver {
   @Inject(() => NotecardService)
   private readonly notecardService: NotecardService;
+
+  @Query(() => Notecard)
+  @UseMiddleware(AuthMiddleware, HasNotecardAccess)
+  async notecard(@Arg("notecardId") notecardId: string, @Info() info: GraphQLResolveInfo) {
+    return this.notecardService.find(notecardId, info);
+  }
 
   @Query(() => [Notecard])
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
