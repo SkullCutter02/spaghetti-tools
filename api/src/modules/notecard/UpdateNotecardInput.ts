@@ -2,16 +2,16 @@ import { Field, InputType } from "type-graphql";
 import { IsUUID, Length } from "class-validator";
 
 @InputType()
-export default class CreateNotecardInput {
-  @Field()
+export default class UpdateNotecardInput {
+  @Field({ nullable: true })
   @Length(1, 755)
-  title: string;
+  title?: string;
 
-  @Field()
-  originalText: string;
+  @Field({ nullable: true })
+  originalText?: string;
 
-  @Field()
-  paraphrasedText: string;
+  @Field({ nullable: true })
+  paraphrasedText?: string;
 
   @Field({ nullable: true })
   @IsUUID()

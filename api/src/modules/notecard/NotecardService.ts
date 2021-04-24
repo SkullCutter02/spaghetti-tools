@@ -9,6 +9,7 @@ import Notecard from "../../entity/Notecard";
 import Tag from "../../entity/Tag";
 import Source from "../../entity/Source";
 import relationMapper from "../../utils/relationMapper";
+import UpdateNotecardInput from "./UpdateNotecardInput";
 
 @Service()
 export default class NotecardService {
@@ -48,5 +49,24 @@ export default class NotecardService {
     return await this.notecardRepository
       .create({ title, originalText, paraphrasedText, remarks, tag, project, source })
       .save();
+  }
+
+  async update(
+    notecardId: string,
+    { title, originalText, paraphrasedText, remarks, tagId, sourceId }: UpdateNotecardInput
+  ) {
+    const notecard = await this.notecardRepository.findOneOrFail({ id: notecardId });
+    const tag = tagId ? await this.tagRepository.findOneOrFail({ id: tagId }) : null;
+    const source = sourceId ? await this.sourceRepository.findOneOrFail({ id: sourceId }) : null;
+
+    notecard.title = title || notecard.title;
+    notecard.originalText = originalText || notecard.originalText;
+    notecard.paraphrasedText = paraphrasedText || notecard.paraphrasedText;
+    notecard.remarks = remarks || notecard.remarks;
+    notecard.tag = tag || notecard.tag;
+    notecard.source = source || notecard.source;
+
+    await notecard.save();
+    return notecard;
   }
 }

@@ -8,6 +8,7 @@ import CreateNotecardInput from "./CreateNotecardInput";
 import NotecardService from "./NotecardService";
 import Notecard from "../../entity/Notecard";
 import HasNotecardAccess from "../../middleware/HasNotecardAccess";
+import UpdateNotecardInput from "./UpdateNotecardInput";
 
 @Service()
 @Resolver()
@@ -31,5 +32,11 @@ export default class NotecardResolver {
   @UseMiddleware(AuthMiddleware, HasProjectAccess)
   async createNotecard(@Arg("projectId") projectId: string, @Arg("input") input: CreateNotecardInput) {
     return this.notecardService.create(projectId, input);
+  }
+
+  @Mutation(() => Notecard)
+  @UseMiddleware(AuthMiddleware, HasNotecardAccess)
+  async updateNotecard(@Arg("notecardId") notecardId: string, @Arg("input") input: UpdateNotecardInput) {
+    return this.notecardService.update(notecardId, input);
   }
 }
