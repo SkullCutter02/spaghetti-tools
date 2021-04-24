@@ -69,4 +69,10 @@ export default class NotecardService {
     await notecard.save();
     return notecard;
   }
+
+  async delete(notecardId: string) {
+    const notecard = await this.notecardRepository.findOneOrFail({ id: notecardId });
+    await notecard.remove();
+    return true;
+  }
 }

@@ -39,4 +39,10 @@ export default class NotecardResolver {
   async updateNotecard(@Arg("notecardId") notecardId: string, @Arg("input") input: UpdateNotecardInput) {
     return this.notecardService.update(notecardId, input);
   }
+
+  @Mutation(() => Boolean)
+  @UseMiddleware(AuthMiddleware, HasNotecardAccess)
+  async deleteNotecard(@Arg("notecardId") notecardId: string) {
+    return this.notecardService.delete(notecardId);
+  }
 }
