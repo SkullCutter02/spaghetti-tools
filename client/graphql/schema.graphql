@@ -1,0 +1,186 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+query Hello {
+  me {
+    id
+  }
+}
+
+type Comment {
+  body: String!
+  id: String!
+}
+
+type ModelEntity {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+type Mutation {
+  addComment(comment: String!, sourceId: String!): Source!
+  changePassword(input: ChangePasswordInput!): Boolean!
+  createNotecard(input: CreateNotecardInput!, projectId: String!): Notecard!
+  createProject(input: CreateProjectInput!): Project!
+  createSource(input: CreateSourceInput!, projectId: String!): Source!
+  createTag(name: String!, projectId: String!): Tag!
+  deleteAccount: Boolean!
+  deleteComment(commentId: String!, sourceId: String!): Boolean!
+  deleteNotecard(notecardId: String!): Boolean!
+  deleteProject(projectId: String!): Boolean!
+  deleteSource(sourceId: String!): Boolean!
+  deleteTag(tagId: String!): Boolean!
+  editComment(commentId: String!, sourceId: String!, updatedComment: String!): Source!
+  forgotPassword(email: String!): Boolean!
+  login(input: LoginInput!): User!
+  register(input: RegisterInput!): User!
+  updateNotecard(input: UpdateNotecardInput!, notecardId: String!): Notecard!
+  updateProject(description: String, name: String, projectId: String!): Project!
+  updateSource(input: UpdateSourceInput!, sourceId: String!): Source!
+  updateTag(name: String, tagId: String!): Tag!
+}
+
+type Notecard {
+  createdAt: DateTime!
+  id: ID!
+  originalText: String!
+  paraphrasedText: String!
+  project: Project!
+  remarks: String
+  source: Source
+  tag: Tag
+  title: String!
+  updatedAt: DateTime!
+}
+
+type Project {
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  name: String!
+  notecards: [Notecard!]!
+  sources: [Source!]!
+  tags: [Tag!]!
+  updatedAt: DateTime!
+  user: User!
+}
+
+type Query {
+  me: User
+  notecard(notecardId: String!): Notecard!
+  notecards(projectId: String!): [Notecard!]!
+  project(projectId: String!): Project!
+  projects: [Project!]!
+  source(sourceId: String!): Source!
+  sources(projectId: String!): [Source!]!
+  tag(tagId: String!): Tag!
+  tags(projectId: String!): [Tag!]!
+}
+
+type Source {
+  citation: String!
+  comments: [Comment!]!
+  createdAt: DateTime!
+  id: ID!
+  mediaType: Media!
+  notecards: [Notecard!]
+  project: Project!
+  updatedAt: DateTime!
+  url: String
+}
+
+type Tag {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  notecards: [Notecard!]
+  project: Project!
+  updatedAt: DateTime!
+}
+
+type User {
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  projects: [Project!]!
+  updatedAt: DateTime!
+  username: String!
+}
+
+enum Media {
+  Blog
+  Book
+  Film
+  Image
+  Interview
+  Journal
+  Lecture
+  Letter
+  Magazine
+  Music
+  Newspaper
+  Report
+  TV
+  Video
+  Website
+}
+
+input ChangePasswordInput {
+  password: String!
+  token: String!
+}
+
+input CreateNotecardInput {
+  originalText: String!
+  paraphrasedText: String!
+  remarks: String
+  sourceId: String
+  tagId: String
+  title: String!
+}
+
+input CreateProjectInput {
+  description: String!
+  name: String!
+}
+
+input CreateSourceInput {
+  citation: String!
+  mediaType: Media!
+  url: String
+}
+
+input LoginInput {
+  credentials: String!
+  password: String!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+input UpdateNotecardInput {
+  originalText: String
+  paraphrasedText: String
+  remarks: String
+  sourceId: String
+  tagId: String
+  title: String
+}
+
+input UpdateSourceInput {
+  citation: String
+  mediaType: Media
+  url: String
+}
+
+
+"The javascript `Date` as string. Type represents date and time as the ISO Date string."
+scalar DateTime
