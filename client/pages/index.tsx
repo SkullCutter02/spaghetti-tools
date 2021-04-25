@@ -7,7 +7,6 @@ const HomePage: React.FC = () => {
   const SPAN_BUTTON_COLOR = "#4196b4";
 
   const width = useWindowWidth();
-  console.log(width);
 
   return (
     <>

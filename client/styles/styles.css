@@ -4,3 +4,10 @@
   box-sizing: border-box;
   font-family: "Inter", serif;
 }
+
+.err-msg {
+  color: #b60f0f;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
