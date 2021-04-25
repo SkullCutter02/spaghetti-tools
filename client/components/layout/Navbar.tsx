@@ -54,6 +54,12 @@ const Navbar: React.FC = () => {
           height: 80%;
           margin-right: 15px;
         }
+
+        @media screen and (max-width: 600px) {
+          nav .name {
+            font-size: 1rem;
+          }
+        }
       `}</style>
     </>
   );
