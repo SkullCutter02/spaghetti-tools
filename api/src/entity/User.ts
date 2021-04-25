@@ -3,6 +3,7 @@ import { Field, ObjectType } from "type-graphql";
 
 import ModelEntity from "../shared/ModelEntity";
 import Project from "./Project";
+import { IsEmail } from "class-validator";
 
 @ObjectType()
 @Entity("users")
@@ -13,6 +14,7 @@ export default class User extends ModelEntity {
 
   @Field()
   @Column({ unique: true })
+  @IsEmail()
   email: string;
 
   @Column()

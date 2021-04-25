@@ -5,7 +5,7 @@ import PASSWORD_REGEX from "../../../constants/passwordRegex";
 
 @InputType()
 export default class RegisterInput {
-  @Length(1, 255)
+  @Length(1, 15)
   @Field()
   username: string;
 
