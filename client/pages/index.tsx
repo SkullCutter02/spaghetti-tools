@@ -1,12 +1,13 @@
 import React from "react";
-import PushButton from "../components/ui/PushButton";
 
+import PushButton from "../components/ui/PushButton";
 import useWindowWidth from "../hooks/useWindowWidth";
 
 const HomePage: React.FC = () => {
   const SPAN_BUTTON_COLOR = "#4196b4";
 
   const width = useWindowWidth();
+  console.log(width);
 
   return (
     <>
@@ -42,6 +43,7 @@ const HomePage: React.FC = () => {
               paddingLr={width > 500 ? 25 : 20}
               threeDValue={width > 500 ? 5 : 4}
               marginLr={width > 500 ? 30 : 15}
+              link={"/auth/login"}
             />
           </div>
         </div>

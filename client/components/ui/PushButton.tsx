@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 interface Props {
   buttonText: string;
@@ -11,6 +12,7 @@ interface Props {
   paddingLr?: number;
   marginTb?: number;
   marginLr?: number;
+  link?: string;
 }
 
 // credits to csslab.app
@@ -26,10 +28,13 @@ const PushButton: React.FC<Props> = ({
   paddingTb = 10,
   marginTb = 0,
   marginLr = 0,
+  link = "",
 }) => {
   return (
     <>
-      <button>{buttonText}</button>
+      <Link href={link}>
+        <button>{buttonText}</button>
+      </Link>
 
       <style jsx>{`
         button {
