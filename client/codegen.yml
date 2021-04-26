@@ -2,7 +2,11 @@ overwrite: true
 schema: "http://localhost:80/api/graphql"
 generates:
   # Get schemas from server
-  generated/schemas.tsx:
-    documents: 'graphql/schema.graphql'
+  generated/graphql.ts:
+    documents: 'graphql/**/*.graphql'
     plugins:
       - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
