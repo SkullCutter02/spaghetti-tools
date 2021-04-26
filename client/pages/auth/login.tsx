@@ -1,8 +1,10 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { ApolloError } from "@apollo/client";
 
+import { useLoginMutation } from "../../generated/graphql";
 import AnimatedInput from "../../components/ui/AnimatedInput";
 import ArrowButton from "../../components/ui/ArrowButton";
 
@@ -12,6 +14,10 @@ interface FormInput {
 }
 
 const LoginPage: React.FC = () => {
+  const [error, setError] = useState<ApolloError | null>(null);
+
+  const [loginMutation] = useLoginMutation();
+
   const {
     register,
     handleSubmit,
@@ -26,9 +32,23 @@ const LoginPage: React.FC = () => {
     ),
   });
 
-  const errMsgRef = useRef<HTMLParagraphElement>(null);
+  const login = async ({ credentials, password }: FormInput) => {
+    setError(null);
 
-  const login = (data: FormInput) => {};
+    try {
+      const {
+        data: { login: data },
+      } = await loginMutation({
+        variables: {
+          credentials,
+          password,
+        },
+      });
+      console.log(data);
+    } catch (err) {
+      setError(err);
+    }
+  };
 
   return (
     <>
@@ -48,9 +68,9 @@ const LoginPage: React.FC = () => {
           register={register}
           error={errors.password}
         />
-        <p className="err-msg" ref={errMsgRef} />
+        <p className="err-msg">{error?.message}</p>
         <div className="submit-btn">
-          <ArrowButton text={"Login"} buttonColor={"#4196b4"} buttonHoverColor={"#287390"} type={"submit"} />
+          <ArrowButton text={"Login"} buttonColor={"#46a2c2"} buttonHoverColor={"#2f83a5"} type={"submit"} />
         </div>
       </form>
 
