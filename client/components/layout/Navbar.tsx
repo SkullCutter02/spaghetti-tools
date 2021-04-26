@@ -1,17 +1,33 @@
 import React from "react";
 import { FaUserAlt } from "react-icons/fa";
+import Link from "next/link";
+import { useSelector } from "react-redux";
+
+import { RootReducer } from "../../store/rootReducer";
 
 const Navbar: React.FC = () => {
+  const user = useSelector((state: RootReducer) => state.user);
+
   return (
     <>
       <nav>
         <div className="left">
           <img src={"/logo.png"} alt="Logo" />
-          <h1 className="name">spaghetti tools</h1>
+          <Link href={"/"}>
+            <h1 className="name">spaghetti tools</h1>
+          </Link>
         </div>
         <div className="right">
-          <FaUserAlt color={"#4e4e4e"} />
-          <p>skullcutter</p>
+          {user ? (
+            <>
+              <FaUserAlt color={"#4e4e4e"} />
+              <p>{user.username}</p>
+            </>
+          ) : (
+            <Link href={"/auth/login"}>
+              <p className="login">Login</p>
+            </Link>
+          )}
         </div>
       </nav>
 
@@ -48,11 +64,18 @@ const Navbar: React.FC = () => {
           color: #4e4e4e;
           font-weight: 600;
           font-size: 1.2rem;
+          cursor: pointer;
         }
 
         img {
           height: 80%;
           margin-right: 15px;
+        }
+
+        .login {
+          text-decoration: underline;
+          color: grey;
+          cursor: pointer;
         }
 
         @media screen and (max-width: 600px) {
