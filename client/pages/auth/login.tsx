@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ApolloError } from "@apollo/client";
+import { useDispatch } from "react-redux";
 
 import { useLoginMutation } from "../../generated/graphql";
 import AnimatedInput from "../../components/ui/AnimatedInput";
 import ArrowButton from "../../components/ui/ArrowButton";
+import userSlice from "../../slices/userSlice";
 
 interface FormInput {
   credentials: string;
@@ -17,6 +19,8 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<ApolloError | null>(null);
 
   const [loginMutation] = useLoginMutation();
+
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -44,7 +48,8 @@ const LoginPage: React.FC = () => {
           password,
         },
       });
-      console.log(data);
+
+      dispatch(userSlice.actions.updateUserInfo(data));
     } catch (err) {
       setError(err);
     }
